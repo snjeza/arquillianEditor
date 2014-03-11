@@ -12,6 +12,10 @@
  ************************************************************************************/
 -->
 <definition>
+    <import>
+        <package>org.jboss.tools.arquillian.editor.internal.model</package>
+        <package>org.jboss.tools.arquillian.editor.internal.actions</package>
+    </import>
     
     <editor-page>
         <id>design</id>
@@ -21,6 +25,27 @@
             <title>Arquillian XML editor</title>
             <content></content>
         </documentation>
+        <action>
+            <id>Arquillian.OpenPomXmlFile</id>
+            <label>Open pom.xml</label>
+            <tooltip>Open pom.xml (Ctrl+Alt+Shift+P)</tooltip>
+            <key-binding>CONTROL+ALT+SHIFT+p</key-binding>
+            <key-binding-behavior>propagated</key-binding-behavior>
+            <image>icons/xpl/editor-pom.gif</image>
+            <context>Sapphire.EditorPage</context>
+            <group>Arquillian.OpenPomXmlFile</group>
+            <location>after:Sapphire.Outline.Hide</location>
+            <hint>
+                <name>style</name>
+                <value>image</value>
+            </hint>
+        </action>
+        <action-handler>
+            <action>Arquillian.OpenPomXmlFile</action>
+            <id>Arquillian.OpenPomXmlFile</id>
+            <label>Open pom.xml</label>
+            <impl>OpenPomXmlFileActionHandler</impl>
+        </action-handler>
         <page-header-image>icons/arquillian_icon16.png</page-header-image>
         <action>
             <id>Arquillian.ShowInSource</id>
@@ -42,7 +67,13 @@
             				<path>DefaultProtocol</path>
             				<case>
             					<content>
-            						<property-editor>Type</property-editor>
+                                    <property-editor>
+                                        <property>Type</property>
+                                        <hint>
+                                          <name>assist.contributors</name>
+                                          <value>AddDependenciesActionContributor</value>
+                                        </hint>
+                                    </property-editor>
                         			<property-editor>
                             			<visible-when>${ Type != null }</visible-when>
                         				<property>Property</property>
@@ -167,7 +198,13 @@
         	<section>
         		<label>General</label>
         		<content>
-        			<property-editor>Qualifier</property-editor>
+        			<property-editor>
+        				<property>Qualifier</property>
+        				<hint>
+        					<name>assist.contributors</name>
+                        	<value>AddProfilesActionContributor</value>
+                        </hint>
+        			</property-editor>
                     <property-editor>
                         <hint>
                            <name>checkbox.layout</name>
@@ -213,7 +250,13 @@
             		<section>
             			<label>Protocol</label>
             			<content>
-            				<property-editor>Type</property-editor>
+            				<property-editor>
+            					<property>Type</property>
+            					<hint>
+                               		<name>assist.contributors</name>
+                               		<value>AddDependenciesActionContributor</value>
+                            	</hint>
+                            </property-editor>
                        		<property-editor>
                        			<visible-when>${ Type != null }</visible-when>
                        			<property>Property</property>
@@ -226,7 +269,4 @@
             </node-factory>
         </case>
     </node-factory>
-    <import>
-        <package>org.jboss.tools.arquillian.editor.internal.model</package>
-    </import>
 </definition>

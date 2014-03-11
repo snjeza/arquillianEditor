@@ -14,14 +14,16 @@ import org.eclipse.sapphire.Element;
 import org.eclipse.sapphire.ElementList;
 import org.eclipse.sapphire.ElementType;
 import org.eclipse.sapphire.ListProperty;
+import org.eclipse.sapphire.Unique;
 import org.eclipse.sapphire.Value;
 import org.eclipse.sapphire.ValueProperty;
 import org.eclipse.sapphire.modeling.annotations.Enablement;
 import org.eclipse.sapphire.modeling.annotations.Label;
-import org.eclipse.sapphire.modeling.annotations.NoDuplicates;
+import org.eclipse.sapphire.modeling.annotations.Service;
 import org.eclipse.sapphire.modeling.annotations.Type;
 import org.eclipse.sapphire.modeling.xml.annotations.XmlBinding;
 import org.eclipse.sapphire.modeling.xml.annotations.XmlListBinding;
+import org.jboss.tools.arquillian.editor.internal.services.ProtocolDependenciesService;
 
 /**
  * 
@@ -35,7 +37,8 @@ public interface Protocol extends Element {
 	@Label(standard = "Type")
 	@XmlBinding(path = "@type")
 	@Type(base = ProtocolType.class)
-	@NoDuplicates
+	@Unique
+	@Service( impl=ProtocolDependenciesService.class)
 	ValueProperty PROP_TYPE = new ValueProperty(TYPE, "Type"); //$NON-NLS-1$
 
 	Value<String> getType();

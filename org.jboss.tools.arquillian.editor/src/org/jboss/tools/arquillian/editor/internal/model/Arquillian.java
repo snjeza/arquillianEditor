@@ -17,11 +17,13 @@ import org.eclipse.sapphire.ImpliedElementProperty;
 import org.eclipse.sapphire.ListProperty;
 import org.eclipse.sapphire.modeling.annotations.CountConstraint;
 import org.eclipse.sapphire.modeling.annotations.Label;
+import org.eclipse.sapphire.modeling.annotations.Service;
 import org.eclipse.sapphire.modeling.annotations.Type;
 import org.eclipse.sapphire.modeling.xml.annotations.XmlBinding;
 import org.eclipse.sapphire.modeling.xml.annotations.XmlListBinding;
 import org.eclipse.sapphire.modeling.xml.annotations.XmlNamespace;
 import org.eclipse.sapphire.modeling.xml.annotations.XmlSchema;
+import org.jboss.tools.arquillian.editor.internal.services.UniqueQualifierBetweenContainerAndGroupService;
 
 /**
  * 
@@ -59,14 +61,16 @@ public interface Arquillian extends Element {
 	
 	@Type( base = Container.class )
     @Label( standard = "Container" )
-    @XmlListBinding( mappings = @XmlListBinding.Mapping( element = "container", type = Container.class ))
+	@Service( impl=UniqueQualifierBetweenContainerAndGroupService.class)
+	@XmlListBinding( mappings = @XmlListBinding.Mapping( element = "container", type = Container.class ))
     ListProperty PROP_CONTAINER = new ListProperty( TYPE, "Container" ); //$NON-NLS-1$ 
 
 	ElementList<Container> getContainers();
 	
 	@Type( base = Group.class )
     @Label( standard = "Group" )
-    @XmlListBinding( mappings = @XmlListBinding.Mapping( element = "group", type = Group.class ))
+	@Service( impl=UniqueQualifierBetweenContainerAndGroupService.class)
+	@XmlListBinding( mappings = @XmlListBinding.Mapping( element = "group", type = Group.class ))
     ListProperty PROP_GROUP = new ListProperty( TYPE, "Group" ); //$NON-NLS-1$ 
 
 	ElementList<Group> getGroups();
