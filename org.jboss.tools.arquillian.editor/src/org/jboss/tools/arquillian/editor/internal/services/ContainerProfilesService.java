@@ -18,8 +18,8 @@ import org.eclipse.sapphire.Text;
 import org.eclipse.sapphire.Value;
 import org.eclipse.sapphire.modeling.Status;
 import org.jboss.forge.arquillian.container.Container;
-import org.jboss.tools.arquillian.core.internal.container.ContainerParser;
 import org.jboss.tools.arquillian.core.internal.util.ArquillianUtility;
+import org.jboss.tools.arquillian.editor.internal.utils.ArquillianEditorUtils;
 
 /**
  * 
@@ -38,19 +38,7 @@ public class ContainerProfilesService extends AbstractDependenciesService {
 	private static Container getContainer(Value<?> value) {
 		if (value != null && value.element() instanceof org.jboss.tools.arquillian.editor.internal.model.Container) {
 			String id = value.text();
-			return getContainer(id);
-		}
-		return null;
-	}
-
-	private static Container getContainer(String id) {
-		if (id != null) {
-			List<Container> containers = ContainerParser.getContainers();
-			for (Container container : containers) {
-				if (id.equals(container.getId())) {
-					return container;
-				}
-			}
+			return ArquillianEditorUtils.getContainer(id);
 		}
 		return null;
 	}
@@ -71,7 +59,7 @@ public class ContainerProfilesService extends AbstractDependenciesService {
 	}
 
 	public static boolean testProfile(IProject project, String id) {
-		if (project != null && id != null && !id.isEmpty() && getContainer(id) != null) {
+		if (project != null && id != null && !id.isEmpty() && ArquillianEditorUtils.getContainer(id) != null) {
 			List<String> profiles = ArquillianUtility.getProfiles(project);
 			return profiles != null && profiles.contains(id);
 		}

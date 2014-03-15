@@ -17,6 +17,7 @@ import org.eclipse.sapphire.ListProperty;
 import org.eclipse.sapphire.Unique;
 import org.eclipse.sapphire.Value;
 import org.eclipse.sapphire.ValueProperty;
+import org.eclipse.sapphire.internal.EnumToStringConversionService;
 import org.eclipse.sapphire.modeling.annotations.Enablement;
 import org.eclipse.sapphire.modeling.annotations.Label;
 import org.eclipse.sapphire.modeling.annotations.Service;
@@ -31,7 +32,10 @@ import org.jboss.tools.arquillian.editor.internal.services.ProtocolDependenciesS
  * 
  */
 public interface Protocol extends Element {
-
+	
+	public static final String SERVLET_25 = new EnumToStringConversionService().convert(ProtocolType.SERVLET_2_5);
+	public static final String SERVLET_30 = new EnumToStringConversionService().convert(ProtocolType.SERVLET_3_0);
+	
 	ElementType TYPE = new ElementType(Protocol.class);
 
 	@Label(standard = "Type")

@@ -19,21 +19,16 @@ import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.project.IMavenProjectFacade;
 import org.eclipse.sapphire.LocalizableText;
 import org.eclipse.sapphire.Text;
 import org.eclipse.sapphire.Value;
-import org.eclipse.sapphire.internal.EnumToStringConversionService;
 import org.eclipse.sapphire.modeling.Status;
-import org.eclipse.sapphire.services.ValidationService;
 import org.jboss.tools.arquillian.core.internal.util.ArquillianUtility;
 import org.jboss.tools.arquillian.editor.ArquillianEditorActivator;
 import org.jboss.tools.arquillian.editor.internal.model.Protocol;
-import org.jboss.tools.arquillian.editor.internal.model.ProtocolType;
 
 /**
  * 
@@ -57,10 +52,8 @@ public class ProtocolDependenciesService extends AbstractDependenciesService {
 	protected Status compute() {
 		final Value<?> value = context( Value.class );
 		if (value != null && value.element() instanceof Protocol) {
-			String servlet25 = new EnumToStringConversionService().convert(ProtocolType.SERVLET_2_5);
-			String servlet30 = new EnumToStringConversionService().convert(ProtocolType.SERVLET_3_0);
-			if (servlet25.equals(value.text())
-					|| servlet30.equals(value.text())) {
+			if (Protocol.SERVLET_25.equals(value.text())
+					|| Protocol.SERVLET_30.equals(value.text())) {
 				IProject project = value.element().adapt(IProject.class);
 				if (!testProtocolDependencies(project) ) {
 					String msg = message.format(new Object[] {value.text(), SERVLET_PROTOCOL_GROUP_ID, SERVLET_PROTOCOL_ARTIFACT_ID});
